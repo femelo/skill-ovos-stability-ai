@@ -77,7 +77,7 @@ class StabilityAiSkill(CommonQuerySkill):
         self.session_results = {}
         self.settings.merge(DEFAULT_SETTINGS, new_only=True)
         self.kw_handler = StabilityAiKeywordHandler()
-        cache_path = os.path.join(self.file_system, RELATIVE_CACHE_PATH)
+        cache_path = os.path.join(self.file_system.path, RELATIVE_CACHE_PATH)
         LOG.info(f"Stability AI image cache located at {cache_path}")
         self.cache_path = cache_path
         self.register_kw_xtract()
