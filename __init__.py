@@ -26,6 +26,8 @@ from stability_ai_api.basic_types import EngineIdV1
 from stability_ai_api.stability_ai_api import StabilityAiV1Solver
 
 
+RELATIVE_CACHE_PATH = "images"
+
 MODEL_MAPPING = {
     "sdxl_v1.0": EngineIdV1.SDXL_10,
     "sd_v1.6": EngineIdV1.SD_16,
@@ -75,6 +77,9 @@ class StabilityAiSkill(CommonQuerySkill):
         self.session_results = {}
         self.settings.merge(DEFAULT_SETTINGS, new_only=True)
         self.kw_handler = StabilityAiKeywordHandler()
+        cache_path = os.path.join(self.file_system, RELATIVE_CACHE_PATH)
+        LOG.info(f"Stability AI image cache located at {cache_path}")
+        self.cache_path = cache_path
         self.register_kw_xtract()
 
     def register_kw_xtract(self):
@@ -218,8 +223,11 @@ class StabilityAiSkill(CommonQuerySkill):
                 height=IMAGE_HEIGHT,
                 style_preset=self.settings.get("style_preset")
             )
-            # TODO: use system cache
-            result = os.path.expanduser(f"~/.cache/figure_{secrets.token_urlsafe(16)}.png")
+            # Save figure
+            result = os.path.join(
+                self.cache_path,
+                f"figure_{secrets.token_urlsafe(16)}.png"
+            )
             with open(result, 'wb') as f:
                 f.write(image)
         except Exception as err:  # handle solver plugin failures, happens in some queries
