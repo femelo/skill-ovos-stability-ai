@@ -1,0 +1,19 @@
+{
+  "query.intent": [
+    "(Desenhe|Pinte|Mostre) {query}",
+    "(Desenhe-me|Pinte-me|Mostre-me) {query}",
+    "(Gere|Faça) uma (pintura|figura|imagem) de {query}",
+    "Poderia (desenhar|pintar|mostrar) {query}",
+    "Poderia (gerar|fazer) uma (pintura|figura|imagem) de {query}"
+  ],
+  "stability_ai.intent": [
+    "stability ai {query}",
+    "(Desenhe|Pinte|Mostre) {query} com stability ai",
+    "(Desenhe-me|Pinte-me|Mostre-me) {query} com stability ai",
+    "(Gere|Faça) uma (pintura|figura|imagem) de {query} com stability ai",
+    "Poderia (desenhar|pintar|mostrar) {query} com stability ai",
+    "Poderia (gerar|fazer) uma (pintura|figura|imagem) de {query} com stability ai",
+    "Peça a stability ai para (desenhar|pintar|mostrar) {query}",
+    "Peça a stability ai para (gerar|fazer) uma (pintura|figura|imagem) de {query}"
+  ]
+}
