@@ -11,8 +11,7 @@
 # limitations under the License.
 import os
 import secrets
-from typing import Any
-
+from typing import Any, Optional
 from ovos_bus_client.session import SessionManager, Session
 from ovos_utils import classproperty
 from ovos_utils.gui import can_use_gui
@@ -58,14 +57,14 @@ class StabilityAiKeywordHandler:
 
     @classmethod
     def extract_keyword(cls, utterance: str, lang: str) -> str:
-        lang = lang.split("-")[0]
-        if lang not in cls.kw_matchers:
+        _lang = lang.split("-")[0]
+        if _lang not in cls.kw_matchers:
             return None
         matcher: IntentContainer = cls.kw_matchers[lang]
         match = matcher.calc_intent(utterance)
         kw = match.get("entities", {}).get("keyword")
         if kw:
-            LOG.debug(f"StabilityAI Keyword: {kw} - Confidence: {match['conf']}")
+            LOG.debug(f"StabilityAI keyword: {kw} - Confidence: {match['conf']}")
         else:
             LOG.debug(f"Could not extract search keyword for '{lang}' from '{utterance}'")
         return kw
@@ -81,6 +80,7 @@ class StabilityAiSkill(CommonQuerySkill):
         os.makedirs(cache_path, exist_ok=True)
         LOG.info(f"Stability AI image cache located at {cache_path}")
         self.cache_path = cache_path
+        self.query_lang = "en-us"
         self.register_kw_xtract()
 
     def register_kw_xtract(self):
@@ -139,10 +139,22 @@ class StabilityAiSkill(CommonQuerySkill):
             self.log.error(err)
             return None
 
+    def translate(self, query: Optional[str], lang: str) -> str:
+        """Translate query if needed."""
+        _lang = lang.split("-")[0]
+        _query_lang = self.query_lang.split("-")[0]
+        if query and (_lang != _query_lang):
+            output = self.translator.translate(query, _query_lang, _lang)
+        else:
+            output = query
+        return output
+
     # common query
     def CQS_match_query_phrase(self, phrase: str) -> Any:
         session = SessionManager.get()
         query = self.kw_handler.extract_keyword(phrase, session.lang)
+        # Translate query if needed
+        query = self.translate(query, session.lang)
         if not query:
             # doesnt look like a question we can answer at all
             return None
@@ -188,8 +200,10 @@ class StabilityAiSkill(CommonQuerySkill):
     def handle_query(self, message):
         """Handle query."""
         query = message.data["query"]
-
         session = SessionManager.get(message)
+        # Translate query if necessary
+        query = self.translate(query, session.lang)
+
         self.session_results[session.session_id] = {
             "query": query,
             "idx": 0,
