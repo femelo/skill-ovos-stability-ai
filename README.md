@@ -17,7 +17,7 @@ The figure is shown in the GUI.
 
 ## Configuration
 
-Under skill settings you can tweak some parameters for Stabilit AI API.
+Under skill settings you can tweak some parameters for Stability AI API.
 
 | Option          | Value                                                                  | Description                                                   |
 | --------------- | ---------------------------------------------------------------------- | ---------------------------------------                       |
