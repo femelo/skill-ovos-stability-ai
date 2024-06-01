@@ -13,6 +13,8 @@ Powered by the [Stability AI API lib](https://github.com/femelo/stability-ai-api
 
 The figure is shown in the GUI.
 
+![stability-ai-skill](./res/stability-ai-skill.gif)
+
 ## Configuration
 
 Under skill settings you can tweak some parameters for Stabilit AI API.
