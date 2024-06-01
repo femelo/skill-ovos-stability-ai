@@ -1,5 +1,5 @@
-(Desenhe-me|Pinte-me|Mostre-me) {query}
-(Desenhe|Pinte|Mostre) {query}
+(Desenhe-me|Pinte-me|Mostre-me|Retrate-me) {query}
+(Desenhe|Pinte|Mostre|Retrate) {query}
 (Gere|Faça) uma (pintura|figura|imagem) de {query}
-Poderia (desenhar|pintar|mostrar) {query}
+Poderia (desenhar|pintar|mostrar|retratar) {query}
 Poderia (gerar|fazer) uma (pintura|figura|imagem) de {query}
