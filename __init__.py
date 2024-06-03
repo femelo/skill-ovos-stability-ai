@@ -50,23 +50,23 @@ class StabilityAiKeywordHandler:
     # utils to extract keyword from text
     @classmethod
     def register_kw_extractors(cls, samples: list, lang: str) -> None:
-        lang = lang.split("-")[0]
-        if lang not in cls.kw_matchers:
-            cls.kw_matchers[lang] = IntentContainer()
-        cls.kw_matchers[lang].add_intent("question", samples)
+        _lang = lang.split("-")[0]
+        if _lang not in cls.kw_matchers:
+            cls.kw_matchers[_lang] = IntentContainer()
+        cls.kw_matchers[_lang].add_intent("question", samples)
 
     @classmethod
     def extract_keyword(cls, utterance: str, lang: str) -> str:
         _lang = lang.split("-")[0]
         if _lang not in cls.kw_matchers:
             return None
-        matcher: IntentContainer = cls.kw_matchers[lang]
+        matcher: IntentContainer = cls.kw_matchers[_lang]
         match = matcher.calc_intent(utterance)
         kw = match.get("entities", {}).get("keyword")
         if kw:
             LOG.debug(f"StabilityAI keyword: {kw} - Confidence: {match['conf']}")
         else:
-            LOG.debug(f"Could not extract search keyword for '{lang}' from '{utterance}'")
+            LOG.debug(f"Could not extract search keyword for '{_lang}' from '{utterance}'")
         return kw
 
 
