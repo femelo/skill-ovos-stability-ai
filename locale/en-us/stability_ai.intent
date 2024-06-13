@@ -1,8 +1,8 @@
 (Draw|Paint|Show|Picture) me {query} with stability ai
 (Draw|Paint|Show|Picture) {query} with stability ai
-(Make|Generate) (a|an) (picture|figure|image) of {query} with stability ai
+(Make|Generate) (a|an) (picture|figure|image|photo) of {query} with stability ai
 Ask stability ai to (draw|paint|show|picture) {query}
-Ask stability ai to (make|generate) (a|an) (picture|figure|image) of {query}
+Ask stability ai to (make|generate) (a|an) (picture|figure|image|photo) of {query}
 Can you (draw|paint|show|picture) {query} with stability ai
-Can you (make|generate) (a|an) (picture|figure|image) of {query} with stability ai
+Can you (make|generate) (a|an) (picture|figure|image|photo) of {query} with stability ai
 stability ai {query}

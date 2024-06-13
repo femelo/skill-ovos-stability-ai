@@ -1,0 +1,18 @@
+{
+    "error.dialog": [
+      "{name} n'a pas pu répondre",
+      "Desolé, mais une erreur s'est produite lorsque l'on a demandé à {name}."
+    ],
+    "asking.dialog": [
+      "Laisse-moi demander à {name}",
+      "Je vais demander à {name}"
+    ],
+    "done.dialog": [
+      "Voilà",
+      "C'est fait"
+    ],
+    "none.dialog": [
+      "Aucun résultat trouvé",
+      "Je n'ai pas pu récupérer le résultat"
+    ]
+}

@@ -1,8 +1,8 @@
 (Desenhe-me|Pinte-me|Mostre-me|Retrate-me) {query} com stability ai
 (Desenhe|Pinte|Mostre|Retrate) {query} com stability ai
-(Gere|Faça) uma (pintura|figura|imagem) de {query} com stability ai
+(Gere|Faça) uma (pintura|figura|image|foto) de {query} com stability ai
 Peça a stability ai para (desenhar|pintar|mostrar|retratar) {query}
-Peça a stability ai para (gerar|fazer) uma (pintura|figura|imagem) de {query}
+Peça a stability ai para (gerar|fazer) uma (pintura|figura|image|foto) de {query}
 Poderia (desenhar|pintar|mostrar) {query} com stability ai
-Poderia (gerar|fazer) uma (pintura|figura|imagem) de {query} com stability ai
+Poderia (gerar|fazer) uma (pintura|figura|image|foto) de {query} com stability ai
 stability ai {query}

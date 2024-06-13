@@ -1,0 +1,19 @@
+{
+  "query.intent": [
+    "(Dessine|Peins|Montre|Dépeins) {query}",
+    "(Dessine-moi|Peins-moi|Montre-moi|Dépeins-moi) {query}",
+    "(Génère|Fais) une (peinture|figure|image|photo) (de|d') {query}",
+    "Pourrait-tu (dessiner|peindre|montrer|dépeindre) {query}",
+    "Pourrait-tu (générer|faire) une (peinture|figure|image|photo) (de|d') {query}"
+  ],
+  "stability_ai.intent": [
+    "stability ai {query}",
+    "(Dessine|Peins|Montre|Dépeins) {query} (avec|sur) stability ai",
+    "(Dessine-moi|Peins-moi|Montre-moi|Dépeins-moi) {query} (avec|sur) stability ai",
+    "(Génère|Fais) une (peinture|figure|image|photo) (de|d') {query} (avec|sur) stability ai",
+    "Pourrait-tu (dessiner|peindre|montrer|dépeindre) {query} (avec|sur) stability ai",
+    "Pourrait-tu (générer|faire) une (peinture|figure|image|photo) (de|d') {query} (avec|sur) stability ai",
+    "Demande à stability ai de (dessiner|peindre|montrer|dépeindre) {query}",
+    "Demande à stability ai de (générer|faire) une (peinture|figure|image|photo) (de|d') {query}"
+  ]
+}

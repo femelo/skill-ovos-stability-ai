@@ -1,5 +1,5 @@
 (Draw|Paint|Show|Picture) me {query}
 (Draw|Paint|Show|Picture) {query}
-(Make|Generate) (a|an) (picture|figure|image) of {query}
+(Make|Generate) (a|an) (picture|figure|image|photo) of {query}
 Can you (draw|paint|show|picture) {query}
-Can you (make|generate) (a|an) (picture|figure|image) of {query}
+Can you (make|generate) (a|an) (picture|figure|image|photo) of {query}
