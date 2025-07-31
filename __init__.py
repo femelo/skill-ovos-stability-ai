@@ -264,7 +264,7 @@ class StabilityAiSkill(CommonQuerySkill):
             self.session_results[session.session_id]["image"] = image
             self.gui.show_image(
                 image, title=title, fill='PreserveAspectFit',
-                override_idle=60, override_animations=True
+                override_idle=30, override_animations=True
             )
         else:
             LOG.info(f"no image in {self.session_results[session.session_id]}")
