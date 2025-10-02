@@ -9,6 +9,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import io
 import os
 import secrets
 from typing import Any, Optional
@@ -56,12 +57,14 @@ class StabilityAiKeywordHandler:
         cls.kw_matchers[_lang].add_intent("question", samples)
 
     @classmethod
-    def extract_keyword(cls, utterance: str, lang: str) -> str:
+    def extract_keyword(cls, utterance: str, lang: str) -> Optional[str]:
         _lang = lang.split("-")[0]
         if _lang not in cls.kw_matchers:
             return None
         matcher: IntentContainer = cls.kw_matchers[_lang]
         match = matcher.calc_intent(utterance)
+        if match is None:
+            return None
         kw = match.get("entities", {}).get("keyword")
         if kw:
             LOG.debug(f"StabilityAI keyword: {kw} - Confidence: {match['conf']}")
@@ -128,18 +131,20 @@ class StabilityAiSkill(CommonQuerySkill):
     @property
     def solver(self):
         """created fresh to allow key/url rotation when settings.json is edited"""
+        if self.settings is None:
+            return None
         try:
             return StabilityAiV1Solver(
-                api_key=self.settings.get("api_key"),
+                api_key=self.settings.get("api_key", ""),
                 engine_id=MODEL_MAPPING.get(
-                    self.settings.get("model")
-                )
+                    self.settings.get("model", "sdxl_v1.0")
+                ) or EngineIdV1.SDXL_10
             )
         except Exception as err:
             self.log.error(err)
             return None
 
-    def translate(self, query: Optional[str], lang: str) -> str:
+    def translate(self, query: Optional[str], lang: str) -> Optional[str]:
         """Translate query if needed."""
         _lang = lang.split("-")[0]
         _query_lang = self.query_lang.split("-")[0]
@@ -221,7 +226,7 @@ class StabilityAiSkill(CommonQuerySkill):
             self.speak_dialog("error", data={"name": self.ai_name})
 
     # Stability AI
-    def ask_stability_ai(self, session: Session):
+    def ask_stability_ai(self, session: Session) -> bool:
         query = self.session_results[session.session_id]["query"]
 
         if "api_key" not in self.settings:
@@ -231,6 +236,10 @@ class StabilityAiSkill(CommonQuerySkill):
             )
             return False  # StabilityAI not configured yet
 
+        if not self.solver:
+            self.log.error("Stability AI client not available")
+            return False  # StabilityAI not configured yet
+
         try:
             image = self.solver.tti_query(  # text-to-image query
                 prompts={"text": query},
@@ -238,6 +247,8 @@ class StabilityAiSkill(CommonQuerySkill):
                 height=IMAGE_HEIGHT,
                 style_preset=self.settings.get("style_preset")
             )
+            if isinstance(image, list):
+                image, = image  # take first image if multiple returned
             # Save figure
             result = os.path.join(
                 self.cache_path,
@@ -251,6 +262,9 @@ class StabilityAiSkill(CommonQuerySkill):
 
         if result:
             self.session_results[session.session_id]["image"] = result
+            self.session_results[session.session_id]["image_path"] = os.path.relpath(
+                result, os.path.dirname(self.file_system.path)
+            )
             return True
         return False
 
@@ -262,10 +276,11 @@ class StabilityAiSkill(CommonQuerySkill):
         image = self.session_results[session.session_id].get("image")
         if image:
             self.session_results[session.session_id]["image"] = image
-            self.gui.show_image(
-                image, title=title, fill='PreserveAspectFit',
-                override_idle=30, override_animations=True
-            )
+            if self.gui:
+                self.gui.show_image(
+                    image, title=title, fill='PreserveAspectFit',
+                    override_idle=30, override_animations=True
+                )
         else:
             LOG.info(f"no image in {self.session_results[session.session_id]}")
 
@@ -280,7 +295,8 @@ class StabilityAiSkill(CommonQuerySkill):
             self.speak_dialog("none")
 
     def stop(self):
-        self.gui.release()
+        if self.gui:
+            self.gui.release()
 
     def stop_session(self, session):
         if session.session_id in self.session_results:
