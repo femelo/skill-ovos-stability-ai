@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 where = ["src"]
 
 [tool.setuptools.package-data]
-ovos_skill_date_time = [
+ovos_skill_stability_ai = [
     "**/*.json",
     "**/*.rx",
     "**/*.dialog",
@@ -17,10 +17,10 @@ ovos_skill_date_time = [
 ]
 
 [tool.hatch.version]
-path = "src/skill_ovos_stability_ai/__version__.py"
+path = "src/ovos_skill_stability_ai/__version__.py"
 
 [project]
-name = "skill-ovos-stability-ai"
+name = "ovos-skill-stability-ai"
 keywords = [
     "ovos",
     "skill",
@@ -59,8 +59,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/femelo/skill-ovos-stability-ai"
-Issues = "https://github.com/femelo/skill-ovos-stability-ai/issues"
+Homepage = "https://github.com/femelo/ovos-skill-stability-ai"
+Issues = "https://github.com/femelo/ovos-skill-stability-ai/issues"
 
 [project.entry-points."ovos.plugin.skill"]
-"skill-ovos-stability-ai.femelo" = "ovos_skill_date_time:StabilityAiSkill"
+"ovos-skill-stability-ai.femelo" = "ovos_skill_stability_ai:StabilityAiSkill"

@@ -6,7 +6,7 @@ from typing import cast
 from ovos_workshop.skill_launcher import PluginSkillLoader, SkillLoader
 from ovos_plugin_manager.skills import find_skill_plugins
 from ovos_utils.messagebus import FakeBus
-from skill_ovos_stability_ai import StabilityAiSkill
+from ovos_skill_stability_ai import StabilityAiSkill
 
 
 class TestSkillLoading(unittest.TestCase):
@@ -18,7 +18,7 @@ class TestSkillLoading(unittest.TestCase):
     def test_from_class(self):
         bus = FakeBus()
         skill = StabilityAiSkill()
-        skill._startup(bus, self.skill_id)
+        skill._startup(cast(MessageBusClient, bus), self.skill_id)
         self.assertEqual(skill.bus, bus)
         self.assertEqual(skill.skill_id, self.skill_id)
 

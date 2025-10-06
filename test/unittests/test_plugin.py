@@ -1,6 +1,6 @@
 import unittest
 from ovos_plugin_manager.skills import find_skill_plugins
-from skill_ovos_stability_ai import StabilityAiSkill
+from ovos_skill_stability_ai import StabilityAiSkill
 
 
 class TestPlugin(unittest.TestCase):
