@@ -9,7 +9,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import io
 import os
 import secrets
 from typing import Any, Optional
@@ -262,9 +261,6 @@ class StabilityAiSkill(CommonQuerySkill):
 
         if result:
             self.session_results[session.session_id]["image"] = result
-            self.session_results[session.session_id]["image_path"] = os.path.relpath(
-                result, os.path.dirname(self.file_system.path)
-            )
             return True
         return False
 
