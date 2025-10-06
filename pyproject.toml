@@ -20,7 +20,7 @@ ovos_skill_date_time = [
 path = "src/skill_ovos_stability_ai/__version__.py"
 
 [project]
-name = "ovos-skill-date-time"
+name = "skill-ovos-stability-ai"
 keywords = [
     "ovos",
     "skill",
