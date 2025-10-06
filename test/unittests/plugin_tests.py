@@ -4,8 +4,8 @@ from ovos_plugin_manager.skills import find_skill_plugins
 
 class TestPlugin(unittest.TestCase):
     @classmethod
-    def setUpClass(self):
-        self.skill_id = "skill-ovos-stability-ai.femelo"
+    def setUpClass(cls):
+        cls.skill_id = "skill-ovos-stability-ai.femelo"
 
     def test_find_plugin(self):
         plugins = find_skill_plugins()

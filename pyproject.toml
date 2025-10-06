@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ovos_skill_date_time = [
+    "**/*.json",
+    "**/*.rx",
+    "**/*.dialog",
+    "**/*.entity",
+    "**/*.intent",
+    "**/*.voc",
+    "**/*.gif",
+]
+
+[tool.hatch.version]
+path = "src/skill_ovos_stability_ai/__version__.py"
+
+[project]
+name = "ovos-skill-date-time"
+keywords = [
+    "ovos",
+    "skill",
+    "plugin",
+    "stability",
+    "ai",
+    "image",
+    "generation",
+]
+dynamic = ["version"]
+authors = [
+  { name="Flávio De Melo", email="flavio.eler@gmail.com" },
+]
+description = "Skill for generating images in OpenVoiceOS via Stability AI"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "ovos-utils",
+    "ovos-workshop",
+    "stability-ai-api",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-timeout",
+    "ovos-core[skills_lgpl]>=0.0.5a28",
+    "ovos-plugin-manager",
+    "ovos-skills-manager",
+]
+
+[project.urls]
+Homepage = "https://github.com/femelo/skill-ovos-stability-ai"
+Issues = "https://github.com/femelo/skill-ovos-stability-ai/issues"
+
+[project.entry-points."ovos.plugin.skill"]
+"skill-ovos-stability-ai.femelo" = "ovos_skill_date_time:StabilityAiSkill"

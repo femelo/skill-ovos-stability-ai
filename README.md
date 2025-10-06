@@ -13,7 +13,7 @@ Powered by the [Stability AI API lib](https://github.com/femelo/stability-ai-api
 
 The figure is shown in the GUI.
 
-![stability-ai-skill](./res/stability-ai-skill.gif)
+![stability-ai-skill](./src/skill_ovos_stability_ai/res/stability-ai-skill.gif)
 
 ## Configuration
 

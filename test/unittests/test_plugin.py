@@ -1,6 +1,6 @@
 import unittest
 from ovos_plugin_manager.skills import find_skill_plugins
-from skill_ovos_wikipedia import WikipediaSkill
+from skill_ovos_stability_ai import StabilityAiSkill
 
 
 class TestPlugin(unittest.TestCase):
@@ -8,4 +8,4 @@ class TestPlugin(unittest.TestCase):
         setup_skill_id = "skill-ovos-stability-ai.femelo"
         plugs = find_skill_plugins()
         self.assertTrue(setup_skill_id in plugs)
-        self.assertEqual(plugs[setup_skill_id], WikipediaSkill)
+        self.assertEqual(plugs[setup_skill_id], StabilityAiSkill)
