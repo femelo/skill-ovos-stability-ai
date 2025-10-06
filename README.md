@@ -13,7 +13,7 @@ Powered by the [Stability AI API lib](https://github.com/femelo/stability-ai-api
 
 The figure is shown in the GUI.
 
-![stability-ai-skill](./res/stability-ai-skill.gif)
+![stability-ai-skill](./src/ovos_skill_stability_ai/res/stability-ai-skill.gif)
 
 ## Configuration
 
@@ -30,7 +30,7 @@ Read more about the parameters in the [Stability AI API reference](https://platf
 
 ## Configuration file
 
-The skill utilizes the `~/.config/mycroft/skills/skill-ovos-stability-ai.femelo/settings.json` file which allows you to configure it.
+The skill utilizes the `~/.config/mycroft/skills/ovos-skill-stability-ai.femelo/settings.json` file which allows you to configure it.
 
 ### Configuration for the skill
 

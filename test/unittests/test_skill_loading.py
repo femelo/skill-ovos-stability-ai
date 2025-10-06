@@ -1,22 +1,24 @@
 import unittest
 from os.path import dirname
+from ovos_bus_client import MessageBusClient
+from typing import cast
 
 from ovos_workshop.skill_launcher import PluginSkillLoader, SkillLoader
 from ovos_plugin_manager.skills import find_skill_plugins
 from ovos_utils.messagebus import FakeBus
-from skill_ovos_wikipedia import WikipediaSkill
+from ovos_skill_stability_ai import StabilityAiSkill
 
 
 class TestSkillLoading(unittest.TestCase):
     @classmethod
-    def setUpClass(self):
-        self.skill_id = "skill-ovos-stability-ai.femelo"
-        self.path = dirname(dirname(dirname(__file__)))
+    def setUpClass(cls):
+        cls.skill_id = "skill-ovos-stability-ai.femelo"
+        cls.path = dirname(dirname(dirname(__file__)))
 
     def test_from_class(self):
         bus = FakeBus()
-        skill = WikipediaSkill()
-        skill._startup(bus, self.skill_id)
+        skill = StabilityAiSkill()
+        skill._startup(cast(MessageBusClient, bus), self.skill_id)
         self.assertEqual(skill.bus, bus)
         self.assertEqual(skill.skill_id, self.skill_id)
 
@@ -34,8 +36,9 @@ class TestSkillLoading(unittest.TestCase):
 
     def test_from_loader(self):
         bus = FakeBus()
-        loader = SkillLoader(bus, self.path)
+        loader = SkillLoader(cast(MessageBusClient, bus), self.path)
         loader.load()
+        assert loader.instance is not None
         self.assertEqual(loader.instance.bus, bus)
         self.assertEqual(loader.instance.root_dir, self.path)
 
@@ -50,5 +53,6 @@ class TestSkillLoading(unittest.TestCase):
             raise RuntimeError("plugin not found")
 
         self.assertEqual(loader.skill_id, self.skill_id)
+        assert loader.instance is not None
         self.assertEqual(loader.instance.bus, bus)
         self.assertEqual(loader.instance.skill_id, self.skill_id)
